@@ -6,6 +6,8 @@ import { AboutModule } from './about/about.module.js';
 import { EducationModule } from './education/education.module.js';
 import { ExperienceModule } from './experience/experience.module.js';
 import { ProjectModule } from './project/project.module.js';
+import { PrismaModule } from './prisma/prisma.module.js';
+import { ConfigModule } from '@nestjs/config';
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
@@ -19,10 +21,14 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
       runtimeMetrics: !Boolean(process.versions?.['webcontainer']),
       serviceId: 'nest-typescript-starter',
     }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     AboutModule,
     EducationModule,
     ExperienceModule,
     ProjectModule,
+    PrismaModule,
   ],
   controllers: [AppController],
   providers: [AppService],
