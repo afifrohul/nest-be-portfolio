@@ -3,6 +3,7 @@ import { createObserveModule } from '@nestjs/observe';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { AboutModule } from './about/about.module.js';
+import { EducationModule } from './education/education.module.js';
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
@@ -17,6 +18,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
       serviceId: 'nest-typescript-starter',
     }),
     AboutModule,
+    EducationModule,
   ],
   controllers: [AppController],
   providers: [AppService],
