@@ -4,6 +4,7 @@ import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { AboutModule } from './about/about.module.js';
 import { EducationModule } from './education/education.module.js';
+import { ExperienceModule } from './experience/experience.module.js';
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
@@ -19,6 +20,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     }),
     AboutModule,
     EducationModule,
+    ExperienceModule,
   ],
   controllers: [AppController],
   providers: [AppService],
