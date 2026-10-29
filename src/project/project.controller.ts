@@ -6,7 +6,11 @@ export class ProjectController {
   constructor(private readonly projectService: ProjectService) {}
 
   @Get()
-  findAll() {
-    return this.projectService.findAll()
+  async findAll() {
+    return {
+      status: 'success',
+      message: 'Data retrieved successfully',
+      data: await this.projectService.findAll(),
+    };
   }
 }
