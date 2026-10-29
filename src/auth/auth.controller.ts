@@ -5,8 +5,8 @@ import {
   Post,
   UnauthorizedException,
 } from '@nestjs/common';
-import { Public, SignInService } from '@nestjs/authentication';
-import { SignInDto, SignUpDto } from './auth.dto.js';
+import { Public } from '@nestjs/authentication';
+import { SignInDto } from './auth.dto.js';
 import { CredentialsService } from './credentials.service.js';
 import { JwtAuth } from './jwt-auth.provider.js';
 
@@ -17,17 +17,6 @@ export class AuthController {
     private readonly credentialsService: CredentialsService,
     private readonly jwtProvider: JwtAuth,
   ) {}
-
-  // @Post('sign-up')
-  // async signUp(@Body() body: SignUpDto) {
-  //   const user = await this.credentialsService.register(
-  //     body.name,
-  //     body.email,
-  //     body.password,
-  //   );
-
-  //   return user;
-  // }
 
   @Post('sign-in')
   @HttpCode(200)

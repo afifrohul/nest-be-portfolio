@@ -2,12 +2,12 @@ import { Module } from '@nestjs/common';
 import { UsersModule } from '../users/users.module.js';
 import { AuthController } from './auth.controller.js';
 import { CredentialsService } from './credentials.service.js';
-import { SessionAuth } from './session-auth.provider.js';
 import { JwtAuth } from './jwt-auth.provider.js';
+import { PasswordHasher } from '@nestjs/authentication';
 
 @Module({
   imports: [UsersModule],
   controllers: [AuthController],
-  providers: [SessionAuth, CredentialsService, JwtAuth],
+  providers: [CredentialsService, JwtAuth, PasswordHasher],
 })
 export class AuthModule {}

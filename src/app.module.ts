@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { createObserveModule } from '@nestjs/observe';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
@@ -8,9 +8,11 @@ import { ExperienceModule } from './experience/experience.module.js';
 import { ProjectModule } from './project/project.module.js';
 import { PrismaModule } from './prisma/prisma.module.js';
 import { ConfigModule } from '@nestjs/config';
-import { AuthenticationModule } from '@nestjs/authentication';
 import { UsersModule } from './users/users.module.js';
 import { AuthModule } from './auth/auth.module.js';
+import { AuthMiddleware } from './common/auth.middleware.js';
+import { JwtAuth } from './auth/jwt-auth.provider.js';
+import { UsersController } from './users/users.controller.js';
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
@@ -27,12 +29,6 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    AuthenticationModule.forRoot({
-      session: {
-        absoluteTtl: '14d', // signed out after 14 days, however active
-        idleTtl: '3d', // or after 3 days without a request
-      },
-    }),
     UsersModule,
     AuthModule,
     AboutModule,
@@ -42,6 +38,10 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     PrismaModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, JwtAuth],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(AuthMiddleware).forRoutes(UsersController);
+  }
+}
