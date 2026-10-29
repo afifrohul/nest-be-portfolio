@@ -6,7 +6,11 @@ export class EducationController {
   constructor(private readonly educationService: EducationService) {}
 
   @Get()
-  findAll() {
-    return this.educationService.findAll();
+  async findAll() {
+    return {
+      status: 'success',
+      message: 'Data retrieved successfully',
+      data: await this.educationService.findAll(),
+    };
   }
 }

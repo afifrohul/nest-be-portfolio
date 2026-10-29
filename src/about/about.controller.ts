@@ -9,7 +9,7 @@ export class AboutController {
   async findAll() {
     return {
       status: 'success',
-      message: 'About data retrieved successfully',
+      message: 'Data retrieved successfully',
       data: await this.aboutService.findAll(),
     };
   }
