@@ -6,7 +6,11 @@ export class ExperienceController {
   constructor(private readonly experienceService: ExperienceService) {}
 
   @Get()
-  findAll() {
-    return this.experienceService.findAll();
+  async findAll() {
+    return {
+      status: 'success',
+      message: 'Data retrieved successfully',
+      data: await this.experienceService.findAll(),
+    };
   }
 }
