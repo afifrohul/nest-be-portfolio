@@ -8,6 +8,9 @@ import { ExperienceModule } from './experience/experience.module.js';
 import { ProjectModule } from './project/project.module.js';
 import { PrismaModule } from './prisma/prisma.module.js';
 import { ConfigModule } from '@nestjs/config';
+import { AuthenticationModule } from '@nestjs/authentication';
+import { UsersModule } from './users/users.module.js';
+import { AuthModule } from './auth/auth.module.js';
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
@@ -24,6 +27,14 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    AuthenticationModule.forRoot({
+      session: {
+        absoluteTtl: '14d', // signed out after 14 days, however active
+        idleTtl: '3d', // or after 3 days without a request
+      },
+    }),
+    UsersModule,
+    AuthModule,
     AboutModule,
     EducationModule,
     ExperienceModule,

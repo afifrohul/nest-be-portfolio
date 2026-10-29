@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { PrismaClient } from '../src/generated/prisma/client.js';
+import { PasswordHasher } from '@nestjs/authentication';
 
 const connectionString = process.env.DATABASE_URL;
 
@@ -12,6 +13,27 @@ const adapter = new PrismaPg({ connectionString });
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
+  // 0. USER
+  const passwordHasher = new PasswordHasher();
+  const hashedPassword = await passwordHasher.hash('password');
+
+  const users = [
+    {
+      id: 'main-user',
+      name: 'Afif Rohul',
+      email: 'afifmemyself22@gmail.com',
+      password: hashedPassword,
+    },
+  ];
+
+  for (const user of users) {
+    await prisma.user.upsert({
+      where: { id: user.id },
+      update: user,
+      create: user,
+    });
+  }
+
   // 1. PROFILE
   const profiles = [
     {
