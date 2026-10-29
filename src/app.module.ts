@@ -10,9 +10,9 @@ import { PrismaModule } from './prisma/prisma.module.js';
 import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './users/users.module.js';
 import { AuthModule } from './auth/auth.module.js';
-import { AuthMiddleware } from './common/auth.middleware.js';
-import { JwtAuth } from './auth/jwt-auth.provider.js';
+import { JwtAuthProvider } from './auth/jwt-auth.provider.js';
 import { UsersController } from './users/users.controller.js';
+import { AuthMiddleware } from './common/middleware/auth.middleware.js';
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
@@ -38,7 +38,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     PrismaModule,
   ],
   controllers: [AppController],
-  providers: [AppService, JwtAuth],
+  providers: [AppService, JwtAuthProvider],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { AboutController } from './about.controller.js';
 import { AboutService } from './about.service.js';
-import { About } from './about.js';
+import { AboutRepository } from './about.repository.js';
 
 @Module({
   controllers: [AboutController],
-  providers: [AboutService, About]
+  providers: [AboutService, AboutRepository],
 })
 export class AboutModule {}

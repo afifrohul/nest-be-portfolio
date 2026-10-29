@@ -4,11 +4,11 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import type { Request, Response, NextFunction } from 'express';
-import { JwtAuth } from '../auth/jwt-auth.provider.js';
+import { JwtAuthProvider } from '../../auth/jwt-auth.provider.js';
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
-  constructor(private readonly jwtProvider: JwtAuth) {}
+  constructor(private readonly jwtProvider: JwtAuthProvider) {}
 
   use(req: Request, res: Response, next: NextFunction) {
     const authorization = req.headers.authorization;
@@ -27,11 +27,10 @@ export class AuthMiddleware implements NestMiddleware {
       console.log('JWT verified successfully');
 
       (req as Request & { user: typeof user }).user = user;
-
     } catch {
       throw new UnauthorizedException('Invalid or expired access token');
     }
-    
+
     return next();
   }
 }

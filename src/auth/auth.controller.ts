@@ -8,14 +8,14 @@ import {
 import { Public } from '@nestjs/authentication';
 import { SignInDto } from './auth.dto.js';
 import { CredentialsService } from './credentials.service.js';
-import { JwtAuth } from './jwt-auth.provider.js';
+import { JwtAuthProvider } from './jwt-auth.provider.js';
 
 @Public()
 @Controller('auth')
 export class AuthController {
   constructor(
     private readonly credentialsService: CredentialsService,
-    private readonly jwtProvider: JwtAuth,
+    private readonly jwtProvider: JwtAuthProvider,
   ) {}
 
   @Post('sign-in')

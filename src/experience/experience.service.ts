@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { Experience } from './experience.js';
+import { ExperienceRepository } from './experience.repository.js';
 
 @Injectable()
 export class ExperienceService {
-  constructor(private readonly experinceRepository: Experience) {}
+  constructor(private readonly experinceRepository: ExperienceRepository) {}
 
   async findAll() {
     return await this.experinceRepository.findAll();

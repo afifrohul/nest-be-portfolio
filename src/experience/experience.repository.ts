@@ -1,13 +1,12 @@
-
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service.js';
 
 @Injectable()
-export class About {
+export class ExperienceRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async findAll() {
-    return this.prisma.profile.findMany({
+    return this.prisma.experience.findMany({
       orderBy: {
         createdAt: 'desc',
       },

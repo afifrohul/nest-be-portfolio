@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { Education } from './education.js';
+import { EducationRepository } from './education.repository.js';
 
 @Injectable()
 export class EducationService {
-  constructor(private readonly educationRepository: Education) {}
+  constructor(private readonly educationRepository: EducationRepository) {}
 
   async findAll() {
     return await this.educationRepository.findAll();
