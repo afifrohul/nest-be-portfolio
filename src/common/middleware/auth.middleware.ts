@@ -13,8 +13,6 @@ export class AuthMiddleware implements NestMiddleware {
   use(req: Request, res: Response, next: NextFunction) {
     const authorization = req.headers.authorization;
 
-    console.log('Authorization header exists:', Boolean(authorization));
-
     if (!authorization?.startsWith('Bearer ')) {
       throw new UnauthorizedException('Access token is required');
     }
@@ -23,8 +21,6 @@ export class AuthMiddleware implements NestMiddleware {
 
     try {
       const user = this.jwtProvider.verify(token);
-
-      console.log('JWT verified successfully');
 
       (req as Request & { user: typeof user }).user = user;
     } catch {

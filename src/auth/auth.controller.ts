@@ -30,7 +30,11 @@ export class AuthController {
       throw new UnauthorizedException('Invalid email or password');
     }
 
-    const accessToken = this.jwtProvider.generateAccessToken({ id: user.id });
+    const accessToken = this.jwtProvider.generateAccessToken({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+    });
 
     return {
       status: 'success',

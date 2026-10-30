@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 
 @Injectable()
 export class JwtAuthProvider {
-  generateAccessToken(payload: { id: string }) {
+  generateAccessToken(payload: { id: string; name: string; email: string }) {
     const JWT_SECRET = String(process.env.JWT_SECRET);
 
     return jwt.sign(payload, JWT_SECRET, {
