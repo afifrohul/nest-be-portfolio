@@ -30,3 +30,5 @@
 !.vscode/extensions.json
 
 /src/generated/prisma
+.vercel
+.env*
