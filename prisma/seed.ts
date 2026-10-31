@@ -211,6 +211,16 @@ async function main() {
       tech: 'Tailwind CSS ・ React ・ MySQL ・ Laravel',
     },
     {
+      id: 'project-if-merch-recreate',
+      title: 'IF MERCH Recreate',
+      desc: 'A rebuilt e-commerce platform for merchandise sales, featuring a Midtrans payment gateway.',
+      details:
+        'IF MERCH Recreate is a modern, rebuilt version of the original IF MERCH project, developed entirely from scratch as a solo effort. Like the original, it serves as an e-commerce platform for selling merchandise, but now enhanced with a fully integrated Midtrans payment gateway, enabling secure and seamless online transactions.',
+      link: 'https://demo-if-merch-recreate.vercel.app/',
+      year: 2025,
+      tech: 'Tailwind CSS ・ Next ・ MySQL ・ Laravel',
+    },
+    {
       id: 'project-forum-app',
       title: 'Forum App',
       desc: 'A full-stack discussion platform built with React and Node.js.',
