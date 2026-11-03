@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post, Put } from '@nestjs/common';
 import { EducationService } from './education.service.js';
 import { Public } from '@nestjs/authentication';
 import { CreateEducationDto } from './dto/create-education.dto.js';
+import { UpdateEducationDto } from './dto/update-education.dto.js';
 
 @Controller('education')
 export class EducationController {
@@ -23,6 +24,18 @@ export class EducationController {
       status: 'success',
       message: 'Data created successfully',
       data: await this.educationService.create(dto),
+    };
+  }
+
+  @Patch(':id')
+  async update(
+    @Param('id') id: string,
+    @Body() dto: UpdateEducationDto,
+  )  {
+    return {
+      status: 'success',
+      message: 'Data updated successfully',
+      data: await this.educationService.update(id, dto),
     };
   }
 }

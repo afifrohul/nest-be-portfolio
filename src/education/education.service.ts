@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { EducationRepository } from './education.repository.js';
 import { CreateEducationDto } from './dto/create-education.dto.js';
+import { UpdateEducationDto } from './dto/update-education.dto.js';
 
 @Injectable()
 export class EducationService {
@@ -22,5 +23,15 @@ export class EducationService {
       end_year: dto.end_year,
       desc: dto.desc,
     });
+  }
+
+  async update(id: string, dto: UpdateEducationDto) {
+    const education = await this.educationRepository.findById(id);
+
+    if (!education) {
+      throw new NotFoundException('Education not found');
+    }
+
+    return this.educationRepository.update(id, dto);
   }
 }

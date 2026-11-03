@@ -17,4 +17,17 @@ export class EducationRepository {
   async create(data: Prisma.EducationCreateInput) {
     return await this.prisma.education.create({ data });
   }
+
+  async findById(id: string) {
+    return this.prisma.education.findUnique({
+      where: { id },
+    });
+  }
+
+  async update(id: string, data: Prisma.EducationUpdateInput) {
+    return await this.prisma.education.update({
+      where: { id },
+      data,
+    });
+  }
 }
