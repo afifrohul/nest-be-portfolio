@@ -1,4 +1,14 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { EducationService } from './education.service.js';
 import { Public } from '@nestjs/authentication';
 import { CreateEducationDto } from './dto/create-education.dto.js';
@@ -28,14 +38,22 @@ export class EducationController {
   }
 
   @Patch(':id')
-  async update(
-    @Param('id') id: string,
-    @Body() dto: UpdateEducationDto,
-  )  {
+  async update(@Param('id') id: string, @Body() dto: UpdateEducationDto) {
     return {
       status: 'success',
       message: 'Data updated successfully',
       data: await this.educationService.update(id, dto),
+    };
+  }
+
+  @Delete(':id')
+  async remove(@Param('id') id: string) {
+    const data = await this.educationService.remove(id);
+
+    return {
+      status: 'success',
+      message: 'Data deleted successfully',
+      data: { deleted_id: data.id },
     };
   }
 }

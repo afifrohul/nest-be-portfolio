@@ -34,4 +34,14 @@ export class EducationService {
 
     return this.educationRepository.update(id, dto);
   }
+
+  async remove(id: string) {
+    const education = await this.educationRepository.findById(id);
+
+    if (!education) {
+      throw new NotFoundException('Education not found');
+    }
+
+    return this.educationRepository.remove(id);
+  }
 }

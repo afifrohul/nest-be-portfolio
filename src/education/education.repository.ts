@@ -30,4 +30,10 @@ export class EducationRepository {
       data,
     });
   }
+
+  async remove(id: string) {
+    return await this.prisma.education.delete({
+      where: { id },
+    });
+  }
 }
