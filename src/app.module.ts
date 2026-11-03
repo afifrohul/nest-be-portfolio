@@ -1,4 +1,9 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import { createObserveModule } from '@nestjs/observe';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
@@ -40,9 +45,14 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
   controllers: [AppController],
   providers: [AppService, JwtAuthProvider],
 })
-
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
+    // user
     consumer.apply(AuthMiddleware).forRoutes(UsersController);
+
+    // education
+    consumer
+      .apply(AuthMiddleware)
+      .forRoutes({ path: 'education', method: RequestMethod.POST });
   }
 }

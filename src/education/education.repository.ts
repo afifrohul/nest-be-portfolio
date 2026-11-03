@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service.js';
+import { Prisma } from '../generated/prisma/client.js';
 
 @Injectable()
 export class EducationRepository {
@@ -11,5 +12,9 @@ export class EducationRepository {
         createdAt: 'desc',
       },
     });
+  }
+
+  async create(data: Prisma.EducationCreateInput) {
+    return await this.prisma.education.create({ data });
   }
 }
