@@ -25,7 +25,7 @@ export class ExperienceService {
   }
 
   async update(id: string, dto: UpdateExperienceDto) {
-    const experience = this.experinceRepository.findById(id);
+    const experience = await this.experinceRepository.findById(id);
 
     if (!experience) {
       throw new NotFoundException('Experience not found');
@@ -35,7 +35,7 @@ export class ExperienceService {
   }
 
   async remove(id: string) {
-    const experience = this.experinceRepository.findById(id);
+    const experience = await this.experinceRepository.findById(id);
 
     if (!experience) {
       throw new NotFoundException('Experience not found');
