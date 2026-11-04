@@ -201,16 +201,6 @@ async function main() {
       tech: 'Tailwind CSS ・ React ・ MySQL ・ Laravel',
     },
     {
-      id: 'project-habit-tracker',
-      title: 'Habit Tracker',
-      desc: 'A personal habit-tracking application with gamification features.',
-      details:
-        'This habit tracker is a personal ongoing project designed to help track and build daily habits. It features a mini gamification system where completing habits rewards experience points (EXP), allowing users to level up over time. The project is still under active development and will continue to be expanded with new features.',
-      link: '',
-      year: 2025,
-      tech: 'Tailwind CSS ・ React ・ MySQL ・ Laravel',
-    },
-    {
       id: 'project-if-merch-recreate',
       title: 'IF MERCH Recreate',
       desc: 'A rebuilt e-commerce platform for merchandise sales, featuring a Midtrans payment gateway.',
@@ -219,6 +209,16 @@ async function main() {
       link: 'https://demo-if-merch-recreate.vercel.app/',
       year: 2025,
       tech: 'Tailwind CSS ・ Next ・ MySQL ・ Laravel',
+    },
+    {
+      id: 'project-habit-tracker',
+      title: 'Habit Tracker',
+      desc: 'A personal habit-tracking application with gamification features.',
+      details:
+        'This habit tracker is a personal ongoing project designed to help track and build daily habits. It features a mini gamification system where completing habits rewards experience points (EXP), allowing users to level up over time. The project is still under active development and will continue to be expanded with new features.',
+      link: '',
+      year: 2025,
+      tech: 'Tailwind CSS ・ React ・ MySQL ・ Laravel',
     },
     {
       id: 'project-forum-app',

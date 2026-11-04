@@ -1,11 +1,21 @@
-import { Controller, Get } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { EducationService } from './education.service.js';
 import { Public } from '@nestjs/authentication';
+import { CreateEducationDto } from './dto/create-education.dto.js';
+import { UpdateEducationDto } from './dto/update-education.dto.js';
 
 @Controller('education')
 export class EducationController {
   constructor(private readonly educationService: EducationService) {}
-  
+
   @Public()
   @Get()
   async findAll() {
@@ -13,6 +23,35 @@ export class EducationController {
       status: 'success',
       message: 'Data retrieved successfully',
       data: await this.educationService.findAll(),
+    };
+  }
+
+  @Post()
+  async create(@Body() dto: CreateEducationDto) {
+    return {
+      status: 'success',
+      message: 'Data created successfully',
+      data: await this.educationService.create(dto),
+    };
+  }
+
+  @Patch(':id')
+  async update(@Param('id') id: string, @Body() dto: UpdateEducationDto) {
+    return {
+      status: 'success',
+      message: 'Data updated successfully',
+      data: await this.educationService.update(id, dto),
+    };
+  }
+
+  @Delete(':id')
+  async remove(@Param('id') id: string) {
+    const data = await this.educationService.remove(id);
+
+    return {
+      status: 'success',
+      message: 'Data deleted successfully',
+      data: { deleted_id: data.id },
     };
   }
 }
