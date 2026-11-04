@@ -4,10 +4,8 @@ import {
   Delete,
   Get,
   Param,
-  ParseIntPipe,
   Patch,
   Post,
-  Put,
 } from '@nestjs/common';
 import { EducationService } from './education.service.js';
 import { Public } from '@nestjs/authentication';

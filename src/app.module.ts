@@ -60,5 +60,16 @@ export class AppModule implements NestModule {
     consumer
       .apply(AuthMiddleware)
       .forRoutes({ path: 'education', method: RequestMethod.DELETE });
+      
+    // experience
+    consumer
+      .apply(AuthMiddleware)
+      .forRoutes({ path: 'experience', method: RequestMethod.POST });
+    consumer
+      .apply(AuthMiddleware)
+      .forRoutes({ path: 'experience', method: RequestMethod.PATCH });
+    consumer
+      .apply(AuthMiddleware)
+      .forRoutes({ path: 'experience', method: RequestMethod.DELETE });
   }
 }
