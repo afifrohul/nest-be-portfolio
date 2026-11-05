@@ -6,11 +6,13 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { EducationService } from './education.service.js';
 import { Public } from '@nestjs/authentication';
 import { CreateEducationDto } from './dto/create-education.dto.js';
 import { UpdateEducationDto } from './dto/update-education.dto.js';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard.js';
 
 @Controller('education')
 export class EducationController {
@@ -26,6 +28,7 @@ export class EducationController {
     };
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   async create(@Body() dto: CreateEducationDto) {
     return {
@@ -35,6 +38,7 @@ export class EducationController {
     };
   }
 
+  @UseGuards(JwtAuthGuard)
   @Patch(':id')
   async update(@Param('id') id: string, @Body() dto: UpdateEducationDto) {
     return {
@@ -44,6 +48,7 @@ export class EducationController {
     };
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   async remove(@Param('id') id: string) {
     const data = await this.educationService.remove(id);

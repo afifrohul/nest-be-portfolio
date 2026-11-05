@@ -10,7 +10,7 @@ export class UsersRepository {
   ) {}
 
   async findByEmail(email: string) {
-    const user = await this.prisma.user.findUnique({
+    return await this.prisma.user.findUnique({
       where: {
         email,
       },
@@ -18,11 +18,6 @@ export class UsersRepository {
         password: false,
       },
     });
-
-    if (!user) {
-      return null;
-    }
-    return user;
   }
 
   /** For password sign-in only. */

@@ -1,9 +1,4 @@
-import {
-  MiddlewareConsumer,
-  Module,
-  NestModule,
-  RequestMethod,
-} from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { createObserveModule } from '@nestjs/observe';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
@@ -15,9 +10,6 @@ import { PrismaModule } from './prisma/prisma.module.js';
 import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './users/users.module.js';
 import { AuthModule } from './auth/auth.module.js';
-import { JwtAuthProvider } from './auth/jwt-auth.provider.js';
-import { UsersController } from './users/users.controller.js';
-import { AuthMiddleware } from './common/middleware/auth.middleware.js';
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
@@ -43,44 +35,8 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     PrismaModule,
   ],
   controllers: [AppController],
-  providers: [AppService, JwtAuthProvider],
+  providers: [AppService],
 })
 export class AppModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    // user
-    consumer.apply(AuthMiddleware).forRoutes(UsersController);
-
-    // education
-    consumer
-      .apply(AuthMiddleware)
-      .forRoutes({ path: 'education', method: RequestMethod.POST });
-    consumer
-      .apply(AuthMiddleware)
-      .forRoutes({ path: 'education', method: RequestMethod.PATCH });
-    consumer
-      .apply(AuthMiddleware)
-      .forRoutes({ path: 'education', method: RequestMethod.DELETE });
-
-    // experience
-    consumer
-      .apply(AuthMiddleware)
-      .forRoutes({ path: 'experience', method: RequestMethod.POST });
-    consumer
-      .apply(AuthMiddleware)
-      .forRoutes({ path: 'experience', method: RequestMethod.PATCH });
-    consumer
-      .apply(AuthMiddleware)
-      .forRoutes({ path: 'experience', method: RequestMethod.DELETE });
-
-    // project
-    consumer
-      .apply(AuthMiddleware)
-      .forRoutes({ path: 'project', method: RequestMethod.POST });
-    consumer
-      .apply(AuthMiddleware)
-      .forRoutes({ path: 'project', method: RequestMethod.PATCH });
-    consumer
-      .apply(AuthMiddleware)
-      .forRoutes({ path: 'project', method: RequestMethod.DELETE });
-  }
+  configure(consumer: MiddlewareConsumer) {}
 }

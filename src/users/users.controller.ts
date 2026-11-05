@@ -1,27 +1,12 @@
-import { Controller, Get, Req } from '@nestjs/common';
+import { Controller, Get, Req, UseGuards } from '@nestjs/common';
 import type { Request } from 'express';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard.js';
 
 @Controller('users')
 export class UsersController {
+  @UseGuards(JwtAuthGuard)
   @Get('me')
-  me(
-    @Req()
-    request: Request & {
-      user?: {
-        id: string;
-        name: string;
-        email: string;
-        iat: number;
-        exp: number;
-      };
-    },
-  ) {
-    const user = request.user;
-
-    return {
-      status: 'success',
-      message: 'User authenticated successfully',
-      data: { id: user?.id, name: user?.name, email: user?.email },
-    };
+  me(@Req() req: Request) {
+    return req.user;
   }
 }

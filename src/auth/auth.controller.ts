@@ -1,48 +1,21 @@
-import {
-  Body,
-  Controller,
-  HttpCode,
-  Post,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
+import { AuthService } from './auth.service.js';
+import { LoginDto } from './dto/login.dto.js';
 import { Public } from '@nestjs/authentication';
-import { SignInDto } from './auth.dto.js';
-import { CredentialsService } from './credentials.service.js';
-import { JwtAuthProvider } from './jwt-auth.provider.js';
 
 @Public()
 @Controller('auth')
 export class AuthController {
-  constructor(
-    private readonly credentialsService: CredentialsService,
-    private readonly jwtProvider: JwtAuthProvider,
-  ) {}
+  constructor(private readonly authService: AuthService) {}
 
   @Post('sign-in')
-  @HttpCode(200)
-  async signIn(@Body() body: SignInDto) {
-    const user = await this.credentialsService.verify(
-      body.email,
-      body.password,
-    );
-
-    if (!user) {
-      throw new UnauthorizedException('Invalid email or password');
-    }
-
-    const accessToken = this.jwtProvider.generateAccessToken({
-      id: user.id,
-      name: user.name,
-      email: user.email,
-    });
+  async login(@Body() dto: LoginDto) {
+    const data = await this.authService.login(dto);
 
     return {
       status: 'success',
       message: 'Sign In success.',
-      data: {
-        user: { id: user.id, name: user.name, email: user.email },
-        accessToken,
-      },
+      data: {accessToken: data.access_token}
     };
   }
 }

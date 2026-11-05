@@ -6,11 +6,13 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { ExperienceService } from './experience.service.js';
 import { Public } from '@nestjs/authentication';
 import { CreateExperienceDto } from './dto/create-experience.dto.js';
 import { UpdateExperienceDto } from './dto/update-experience.dto.js';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard.js';
 
 @Controller('experience')
 export class ExperienceController {
@@ -26,6 +28,7 @@ export class ExperienceController {
     };
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   async create(@Body() dto: CreateExperienceDto) {
     return {
@@ -35,6 +38,7 @@ export class ExperienceController {
     };
   }
 
+  @UseGuards(JwtAuthGuard)
   @Patch(':id')
   async update(@Param('id') id: string, @Body() dto: UpdateExperienceDto) {
     return {
@@ -44,6 +48,7 @@ export class ExperienceController {
     };
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   async remove(@Param('id') id: string) {
     const data = await this.experienceService.remove(id);
