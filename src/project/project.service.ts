@@ -1,5 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { ProjectRepository } from './projectRepository.js';
+import { CreateProjectDto } from './dto/create-project.dto.js';
+import { UpdateProjectDto } from './dto/update-project.dto.js';
 
 @Injectable()
 export class ProjectService {
@@ -7,5 +9,36 @@ export class ProjectService {
 
   async findAll() {
     return await this.projectRepository.findAll();
+  }
+
+  async create(dto: CreateProjectDto) {
+    return await this.projectRepository.create({
+      title: dto.title,
+      desc: dto.desc,
+      details: dto.details,
+      year: dto.year,
+      link: dto.link,
+      tech: dto.tech,
+    });
+  }
+
+  async update(id: string, dto: UpdateProjectDto) {
+    const project = await this.projectRepository.findById(id);
+
+    if (!project) {
+      throw new NotFoundException('Project not found');
+    }
+
+    return this.projectRepository.update(id, dto);
+  }
+
+  async remove(id: string) {
+    const project = await this.projectRepository.findById(id);
+
+    if (!project) {
+      throw new NotFoundException('Project not found');
+    }
+
+    return this.projectRepository.remove(id);
   }
 }
