@@ -25,22 +25,24 @@ export class EducationService {
     });
   }
 
-  async update(id: string, dto: UpdateEducationDto) {
-    const education = await this.educationRepository.findById(id);
+  async findById(id: string) {
+    const exist = await this.educationRepository.findById(id);
 
-    if (!education) {
+    if (!exist) {
       throw new NotFoundException('Education not found');
     }
+
+    return exist;
+  }
+
+  async update(id: string, dto: UpdateEducationDto) {
+    await this.findById(id);
 
     return this.educationRepository.update(id, dto);
   }
 
   async remove(id: string) {
-    const education = await this.educationRepository.findById(id);
-
-    if (!education) {
-      throw new NotFoundException('Education not found');
-    }
+    await this.findById(id);
 
     return this.educationRepository.remove(id);
   }
