@@ -24,22 +24,24 @@ export class ExperienceService {
     });
   }
 
-  async update(id: string, dto: UpdateExperienceDto) {
-    const experience = await this.experinceRepository.findById(id);
+  async findById(id: string) {
+    const exist = await this.experinceRepository.findById(id);
 
-    if (!experience) {
+    if (!exist) {
       throw new NotFoundException('Experience not found');
     }
+
+    return exist;
+  }
+
+  async update(id: string, dto: UpdateExperienceDto) {
+    await this.findById(id);
 
     return this.experinceRepository.update(id, dto);
   }
 
   async remove(id: string) {
-    const experience = await this.experinceRepository.findById(id);
-
-    if (!experience) {
-      throw new NotFoundException('Experience not found');
-    }
+    await this.findById(id);
 
     return this.experinceRepository.remove(id);
   }
