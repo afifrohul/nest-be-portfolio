@@ -22,22 +22,24 @@ export class ProjectService {
     });
   }
 
-  async update(id: string, dto: UpdateProjectDto) {
-    const project = await this.projectRepository.findById(id);
+  async findById(id: string) {
+    const exist = await this.projectRepository.findById(id);
 
-    if (!project) {
+    if (!exist) {
       throw new NotFoundException('Project not found');
     }
+
+    return exist;
+  }
+
+  async update(id: string, dto: UpdateProjectDto) {
+    await this.findById(id);
 
     return this.projectRepository.update(id, dto);
   }
 
   async remove(id: string) {
-    const project = await this.projectRepository.findById(id);
-
-    if (!project) {
-      throw new NotFoundException('Project not found');
-    }
+    await this.findById(id);
 
     return this.projectRepository.remove(id);
   }
